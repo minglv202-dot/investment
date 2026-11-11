@@ -1,62 +1,81 @@
-# Investments Assignment 2026 — Task 1
+# Task 2 — Single Index Model: Variance Decomposition
 
-Estimate the expected annual excess returns of the MSCI US Index and the 10 researched US stocks using the **Single Index Model**.
+This project completes Task 2 of the KU Leuven Investments Assignment 2026.
+It estimates the annual total, systematic, and idiosyncratic variances of the
+MSCI US Index and the ten researched US stocks using the Single Index Model.
 
 ## Model
 
-For stock \(i\), the Single Index Model is
+For stock *i* on day *t*:
 
 \[
 R_{i,t}-R_{f,t}=a_i+\beta_i(R_{m,t}-R_{f,t})+\epsilon_{i,t}.
 \]
 
-The beta is estimated by OLS using historical daily excess returns. The analysts' annual alpha forecasts are then combined with the expected annual market risk premium:
+The variance decomposition is:
 
 \[
-E(R_i)-R_f=\alpha_i+\beta_i\big(E(R_m)-R_f\big).
+\operatorname{Var}(R_i-R_f)
+=\beta_i^2\operatorname{Var}(R_m-R_f)
++\operatorname{Var}(\epsilon_i).
 \]
 
-Assignment inputs:
+Annualization follows the assignment's 250-trading-day convention:
 
-- Expected annual MSCI US return: **9.75%**
-- Annual risk-free rate: **4.20%**
-- Expected market risk premium: **5.55%**
-- Stock-return annualization convention: **250 trading days per year**
-- Treasury bill APR conversion: **360 days per year**
-- Visa (V) alpha forecast: **0.00%**, as confirmed for this calculation
+\[
+\sigma^2_{annual}=250\,s^2_{daily}.
+\]
 
-## Data
+Thus:
 
-Put the assignment workbook `DATA2026.xlsx` in this folder. The script reads the `DATA` worksheet and extracts the TRI series and Treasury bill rate.
+- Total variance: `250 * sample_variance(stock_daily_excess_return)`.
+- Systematic variance: `beta**2 * annual_market_variance`.
+- Idiosyncratic variance: `250 * sample_variance(OLS_daily_residuals)`.
 
-The workbook contains the MSCI US index and 10 stocks: MMM, GOOGL, AXP, AAPL, CVX, CSCO, HON, TRV, V, and WMT.
+Sample variances use `ddof=1`. With an OLS regression including an intercept,
+the residuals are orthogonal to the market factor in-sample. Using the same
+sample-variance convention for returns and residuals makes the sample variance
+decomposition reconcile (up to floating-point precision).
+
+Variance columns are expressed in **annual decimal-return-squared units**.
+For intuition, the script also reports annualized volatility in percent:
+`sqrt(annual_variance) * 100`.
+
+The market index is the factor itself, so its beta is 1 and its idiosyncratic
+variance is 0. The 3-month Treasury bill is shown as a risk-free asset with zero
+variance in the portfolio model; the historical bill-rate series is used to
+construct daily excess returns, not treated as a risky asset-return index.
+
+## Data and conventions
+
+- Input: `DATA2026.xlsx`, worksheet `DATA`.
+- Stock and market returns are calculated from Total Return Indices.
+- Treasury bill APR is supplied in percentage points (for example, `3.91`
+  means 3.91% p.a.) and converted to a daily rate as `APR / 100 / 360`.
+- Daily excess returns are regressed using OLS with an intercept.
+- Daily variances are annualized by multiplying by 250, as stated in the assignment.
+- The script checks that total variance equals systematic plus idiosyncratic
+  variance for each stock.
 
 ## Run
 
-Install the dependencies:
+Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+pip install numpy pandas openpyxl statsmodels
 ```
 
-Run the calculation:
+Place `DATA2026.xlsx` next to the script, then run:
 
 ```bash
-python task1_expected_excess_returns.py DATA2026.xlsx
+python task2_risk_decomposition.py DATA2026.xlsx
 ```
 
-The script writes `task1_results.csv` with full-precision results. The terminal output is displayed to four decimal places.
+Optional output path:
 
-## Method
+```bash
+python task2_risk_decomposition.py DATA2026.xlsx --output outputs/task2_risk_decomposition.csv
+```
 
-1. Calculate daily TRI returns: \(R_{i,t}=TRI_{i,t}/TRI_{i,t-1}-1\).
-2. Convert the Treasury bill APR from percent per annum into a daily decimal rate: \(r_{f,t}=(APR_t/100)/360\).
-3. Calculate daily excess returns for each stock and MSCI US.
-4. Estimate each stock's beta by OLS regression of stock excess return on MSCI US excess return.
-5. Calculate expected annual excess returns using the analyst alpha forecasts and the 5.55% market risk premium.
-
-The Treasury bill rate recorded on date \(t\) is matched to the TRI return from date \(t-1\) to date \(t\). This is the date-alignment convention used by the script.
-
-## Important distinction
-
-The historical regression intercept is not substituted for the analysts' alpha forecast. The regression is used to estimate **beta**; the assignment's analyst alpha forecasts are used in the expected-return calculation.
+Do not publish the course-provided workbook to a public repository unless you
+have permission to share it. The script and README can be committed separately.
