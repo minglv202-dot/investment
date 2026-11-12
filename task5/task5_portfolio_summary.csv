@@ -1,0 +1,18 @@
+Metric,Value
+Method,Closed-form active-set solution
+Sharpe_ratio,0.3391557220751445
+Expected_excess_return,0.053785016645851044
+Variance,0.025149208266759447
+Risk_volatility,0.15858501904896138
+Sum_of_weights,0.9999999999999999
+Active_assets,"MSCI US, MMM, AAPL, HON, TRV, WMT"
+Inactive_assets,"GOOGL, AXP, CVX, CSCO, V"
+Task4_Sharpe_ratio_reference,0.33915572
+Task4_expected_excess_return_reference,0.0537850167
+Task4_variance_reference,0.0251492083
+Task4_risk_volatility_reference,0.1585850191
+Unconstrained_Sharpe_ratio_diagnostic,0.34499808865233783
+Unconstrained_expected_excess_return_diagnostic,0.0550353500832603
+Unconstrained_risk_volatility_diagnostic,0.15952363764751357
+KKT_lambda,17.387282016896055
+Minimum_eigenvalue_covariance,0.004584549455372795
