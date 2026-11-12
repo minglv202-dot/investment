@@ -157,21 +157,21 @@ Historical observations are taken from the course-provided `DATA2026.xlsx` workb
 
 Daily stock and market returns are calculated from Total Return Indices (TRI):
 
-\[
+$$
 R_{i,t}=\frac{TRI_{i,t}}{TRI_{i,t-1}}-1.
-\]
+$$
 
 The daily risk-free rate is obtained from the Treasury Bill APR:
 
-\[
+$$
 r_{f,t}^{daily}=\frac{APR_t}{100\times360}.
-\]
+$$
 
 Daily excess returns are then calculated as:
 
-\[
+$$
 R_{i,t}^{excess}=R_{i,t}-r_{f,t}^{daily}.
-\]
+$$
 
 All expected returns, variances, and covariances used in portfolio analysis are expressed on an annual basis.
 
@@ -187,21 +187,21 @@ Estimate the annual expected excess return of each investable risky asset using 
 
 The Single Index Model is:
 
-\[
+$$
 R_{i,t}-R_{f,t}
 =
 \alpha_i+\beta_i(R_{m,t}-R_{f,t})+\epsilon_{i,t}.
-\]
+$$
 
 The market beta is estimated by running an OLS regression of each asset's daily excess returns on the market's daily excess returns.
 
 The expected annual excess return is then calculated using:
 
-\[
+$$
 E(R_i)-R_f
 =
 \alpha_i+\beta_i[E(R_m)-R_f].
-\]
+$$
 
 Here, the alpha is the analyst-provided forecast, while beta is estimated from historical observations.
 
@@ -230,27 +230,27 @@ Estimate the total, systematic, and idiosyncratic variance of each risky asset.
 
 Under the Single Index Model:
 
-\[
+$$
 \sigma_i^2
 =
 \beta_i^2\sigma_m^2+\sigma_{\epsilon_i}^2.
-\]
+$$
 
 Systematic variance:
 
-\[
+$$
 \sigma_{i,systematic}^2
 =
 \beta_i^2\sigma_m^2.
-\]
+$$
 
 Idiosyncratic variance:
 
-\[
+$$
 \sigma_{i,idiosyncratic}^2
 =
 \sigma_{\epsilon_i}^2.
-\]
+$$
 
 Daily sample variances are annualized by multiplying by 250. Sample variance is calculated using `ddof=1`.
 
@@ -283,42 +283,42 @@ The covariance matrix is constructed from the Single Index Model.
 
 For different assets \(i\) and \(j\):
 
-\[
+$$
 Cov(R_i,R_j)=\beta_i\beta_j\sigma_m^2,
 \quad i\neq j.
-\]
+$$
 
 The diagonal elements contain the total asset variances.
 
 For a portfolio with weights \(w\):
 
-\[
+$$
 E(R_p)-R_f=w^T\mu,
-\]
+$$
 
-\[
+$$
 \sigma_p^2=w^T\Sigma w.
-\]
+$$
 
 For each target expected excess return, solve:
 
-\[
+$$
 \min_w\quad w^T\Sigma w
-\]
+$$
 
 subject to:
 
-\[
+$$
 w^T\mu=\mu_{target},
-\]
+$$
 
-\[
+$$
 \sum_iw_i=1,
-\]
+$$
 
-\[
+$$
 w_i\geq0.
-\]
+$$
 
 The final constraint enforces the assignment's no-short-selling requirement.
 
@@ -351,22 +351,22 @@ Find the fully invested risky portfolio that maximizes the Sharpe ratio.
 
 The Sharpe ratio is:
 
-\[
+$$
 S_p=\frac{E(R_p)-R_f}{\sigma_p}.
-\]
+$$
 
 The optimization problem is:
 
-\[
+$$
 \max_w
 \frac{w^T\mu}{\sqrt{w^T\Sigma w}}
-\]
+$$
 
 subject to:
 
-\[
+$$
 \sum_iw_i=1,\qquad w_i\geq0.
-\]
+$$
 
 Since `scipy.optimize.minimize` minimizes an objective function, the implementation minimizes the negative Sharpe ratio.
 
@@ -397,9 +397,9 @@ Calculate the optimal risky portfolio through a step-by-step closed-form approac
 
 For an unconstrained tangency portfolio, the theoretical direction of the optimal weight vector is:
 
-\[
+$$
 w\propto\Sigma^{-1}\mu.
-\]
+$$
 
 The weights can be normalized to sum to one.
 
@@ -451,17 +451,17 @@ Construct the Capital Allocation Line (CAL) using the tangency portfolio and the
 
 The CAL describes the combinations of the risk-free asset and the tangency portfolio:
 
-\[
+$$
 E(R_c)-R_f
 =
 \frac{E(R_T)-R_f}{\sigma_T}\sigma_c.
-\]
+$$
 
 The slope is:
 
-\[
+$$
 \frac{E(R_T)-R_f}{\sigma_T}=S_T.
-\]
+$$
 
 Therefore, the slope of the CAL equals the Sharpe ratio of the tangency portfolio.
 
@@ -476,9 +476,9 @@ Therefore, the slope of the CAL equals the Sharpe ratio of the tangency portfoli
 
 The CAL slope is approximately:
 
-\[
+$$
 S_T=0.3392.
-\]
+$$
 
 This line represents the best attainable risk-return combinations from mixing the risk-free asset with the optimal risky portfolio under the model assumptions.
 
@@ -492,26 +492,26 @@ Determine the optimal complete portfolio for an investor with a risk aversion pa
 
 The optimal fraction invested in the tangency portfolio is:
 
-\[
+$$
 y^*=
 \frac{E(R_T)-R_f}{A\sigma_T^2}.
-\]
+$$
 
 The remaining fraction is invested in the risk-free asset:
 
-\[
+$$
 1-y^*.
-\]
+$$
 
 The complete portfolio's expected excess return and risk are:
 
-\[
+$$
 E(R_C)-R_f=y^*[E(R_T)-R_f],
-\]
+$$
 
-\[
+$$
 \sigma_C=y^*\sigma_T,
-\]
+$$
 
 for a non-negative allocation to the tangency portfolio.
 
@@ -547,31 +547,31 @@ Determine the level of risk aversion below which an investor would want to lever
 
 From the optimal allocation formula:
 
-\[
+$$
 y^*=
 \frac{E(R_T)-R_f}{A\sigma_T^2},
-\]
+$$
 
 leverage occurs when:
 
-\[
+$$
 y^*>1.
-\]
+$$
 
 Rearranging gives:
 
-\[
+$$
 A<
 \frac{E(R_T)-R_f}{\sigma_T^2}.
-\]
+$$
 
 The threshold is therefore:
 
-\[
+$$
 A_{threshold}
 =
 \frac{E(R_T)-R_f}{\sigma_T^2}.
-\]
+$$
 
 **Implementation**
 
@@ -584,9 +584,9 @@ A_{threshold}
 
 **Main result**
 
-\[
+$$
 A_{threshold}\approx2.1386.
-\]
+$$
 
 Thus, under the model's borrowing assumptions, investors with a risk aversion parameter below approximately 2.1386 would want to leverage the tangency portfolio.
 
@@ -609,11 +609,11 @@ Integrate the results from the previous tasks into one expected excess return-ri
 
 The diagram uses annualized standard deviation on the horizontal axis and annual expected excess return on the vertical axis.
 
-\[
+$$
 x=\sigma_p,
 \qquad
 y=E(R_p)-R_f.
-\]
+$$
 
 **Implementation**
 
@@ -642,17 +642,17 @@ Estimate the maximum annual management fee that the active-passive fund can theo
 
 The active-passive fund's expected abnormal return is its portfolio alpha:
 
-\[
+$$
 \alpha_P=\sum_iw_i\alpha_i.
-\]
+$$
 
 The portfolio alpha is calculated using the tangency portfolio weights from Task 5 and the analyst alpha forecasts.
 
 Under the assumption that the management fee is deducted from the fund's annual performance, the theoretical maximum fee is the amount that exhausts the fund's expected alpha:
 
-\[
+$$
 f_{max}=\alpha_P.
-\]
+$$
 
 This approach accounts for the fact that the active-passive portfolio may have a beta different from one. Simply subtracting the MSCI US expected return from the fund's expected return would not isolate the abnormal return generated by active stock selection.
 
@@ -666,9 +666,9 @@ This approach accounts for the fact that the active-passive portfolio may have a
 
 **Main result**
 
-\[
+$$
 \boxed{f_{max}=0.5674\%\text{ per annum}}
-\]
+$$
 
 This is a theoretical upper bound. It assumes that the analyst alpha forecasts are realized and excludes other costs such as transaction costs, taxes, and additional operating expenses.
 
