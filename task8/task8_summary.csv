@@ -1,0 +1,8 @@
+﻿Metric,Value,Interpretation
+Critical risk aversion parameter,2.1386365709,Leverage if A is below this value
+Tangency expected excess return,0.0537850166,5.378502% p.a.
+Tangency variance,0.0251492083,Annual variance
+Tangency standard deviation,0.1585850192,15.858502% p.a.
+Leverage condition,A < 2.1386365709,Optimal tangency allocation y* > 1
+Boundary,A = 2.1386365709,100% invested in tangency portfolio
+Lending condition,A > 2.1386365709,Optimal tangency allocation y* < 1
