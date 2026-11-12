@@ -2,7 +2,8 @@
 ## Portfolio Construction, Risk Analysis, and Active-Passive Investment Strategy
 
 
-##short version conclusion
+(short version conclusion)
+
 # Investment Assignment 2026
 
 ## Overview
@@ -82,7 +83,7 @@ This project demonstrates a complete quantitative investment workflow, from hist
 It provides a modular Python implementation with intermediate outputs and visualizations, allowing the investment analysis to be inspected and reproduced.
 
 
-##Comprehensive version
+(Comprehensive version)
 ## 1. Project Overview
 
 This project implements a complete quantitative portfolio construction and investment analysis workflow based on the KU Leuven Investments Assignment 2026.
@@ -131,9 +132,9 @@ The assignment provides analyst alpha forecasts for the ten individual stocks. T
 
 The market risk premium is:
 
-\[
+$$
 E(R_m)-R_f=9.75\%-4.20\%=5.55\%.
-\]
+$$
 
 ### 2.3 Analyst alpha forecasts
 
