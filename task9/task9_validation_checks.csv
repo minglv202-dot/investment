@@ -1,0 +1,10 @@
+Check,Value
+Covariance symmetry max abs error,0.0
+Covariance minimum eigenvalue,0.004584549455372795
+GMVP weight sum,1.0000000000009999
+Tangency weight sum,0.9999999999999996
+Task4 vs Task5 max weight difference,2.3643139501761112e-08
+Frontier weight-sum max abs error,1.000088900582341e-12
+Frontier return max abs error (percentage points),2.9839868354031296e-09
+Task7 total weight,1.0
+Task7 risky weights vs y* tangency max abs diff,1.1536732541506112e-09

@@ -1,0 +1,5 @@
+Portfolio,Expected_Excess_Return_pct_pa,Annual_Risk_pct_pa,Sharpe_Ratio
+GMVP,3.650873228067765,13.039548173852648,
+Tangency portfolio,5.378501664585104,15.858501904896139,0.3391557220751445
+Complete portfolio (A=6),1.9171100577999998,5.6525953594,0.3391557220751445
+Risk-free asset,0.0,0.0,
